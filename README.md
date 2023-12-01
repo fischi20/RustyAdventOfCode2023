@@ -23,13 +23,13 @@ args:
 - color is used for a nicer print
 
 ```bash
-cargo test -- --nocapture --color
+cargo test -- --nocapture --color always
 ```
 
 ### run a specific day
 
 ```bash
-cargo test dayX -- --nocapture --color
+cargo test dayX -- --nocapture --color always
 
 ```
 
