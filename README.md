@@ -20,6 +20,13 @@ args:
 cargo test -- --nocapture --color
 ```
 
+### run a specific day
+
+```bash
+cargo test dayX -- --nocapture --color
+
+```
+
 ### create a day
 
 ```bash
