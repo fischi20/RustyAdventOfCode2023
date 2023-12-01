@@ -1,6 +1,12 @@
 # Advent of Code 2023
 
 This is my repository to solve advent of code 2023 problems in rust.
+I won't try to find the most optimal solution, so please don't use it as a reference,
+there for sure are cleaner and more efficient solutions out there
+
+## Template
+
+The [template](https://github.com/fischi20/RustyAdventOfCode2023/tree/template) branch contains a template without any completed days.
 
 ## Requirements
 
@@ -18,6 +24,13 @@ args:
 
 ```bash
 cargo test -- --nocapture --color
+```
+
+### run a specific day
+
+```bash
+cargo test dayX -- --nocapture --color
+
 ```
 
 ### create a day
