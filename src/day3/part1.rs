@@ -21,13 +21,6 @@ fn has_adiecent_symbols(
     let end_line: usize = (position.line + 1).min(content.len()-1) as usize;
     let end_col: usize = (position.col + value.len()).min(content[0].len()-1) as usize;
 
-    if print {
-        println!(
-            "Checking Square for val {}: l1 {} c1 {} | l2 {} c2 {}",
-            value, start_line, start_col, end_line, end_col
-        );
-    }
-
     for line in start_line..=end_line {
         for col in start_col..=end_col {
             if content[line][col].is_ascii_punctuation() && content[line][col] != '.' {
@@ -88,9 +81,6 @@ pub fn solve_day_3_part_part1() {
         match get_next_number(position, &char_lines) {
             Some((val, start_position, end_position)) => {
                 if has_adiecent_symbols(&val, start_position, &char_lines, number_amount == 0) {
-                    if number_amount < 20 {
-                        println!("valid number: {}", val);
-                    }
                     total += val.parse::<u32>().unwrap();
                     number_amount += 1;
                 }
