@@ -1,39 +1,83 @@
+use std::collections::HashMap;
+
 use crate::{day_input_to_string, hashmap};
 
 #[allow(unused)]
 pub fn solve_day_1_part_2() {
     let mut contents = day_input_to_string!();
 
-    let replace_map = hashmap! {
-        "one"=>"1",
-        "two"=>"2",
-        "three"=>"3",
-        "four"=>"4",
-        "five"=>"5",
-        "six"=>"6",
-        "seven"=>"7",
-        "eight"=>"8",
-        "nine"=>"9"
+    let replace_map: HashMap<&str, u32> = hashmap! {
+        "one"=>1,
+        "two"=>2,
+        "three"=>3,
+        "four"=>4,
+        "five"=>5,
+        "six"=>6,
+        "seven"=>7,
+        "eight"=>8,
+        "nine"=>9
     };
 
-    for pattern in replace_map.keys() {
-        contents = contents.replace(pattern, replace_map.get(pattern).unwrap());
-    }
 
     let mut coords: u32 = 0;
+    let mut index = 0;
     for line in contents.lines() {
-        let mut cal_val: Option<u32> = None;
-        let mut last_val: u32 = 0;
-        for char in line.chars() {
-            if char.is_numeric() {
-                last_val = char.to_digit(10).unwrap();
-                if cal_val.is_none() {
-                    cal_val = Some(last_val * 10);
+        let mut left_val: Option<u32> = None;
+        let mut right_val: Option<u32> = None;
+        'charIter: for i in 0..line.len() {
+            let current_left_char = line.chars().nth(i).unwrap();
+            let current_right_char = line.chars().nth(line.len()-(i+1)).unwrap();
+            if left_val.is_none() {
+                if current_left_char.is_numeric() {
+                    left_val = Some(current_left_char.to_digit(10).unwrap());
+                } else {
+                    // check if one of the replace_map keys is present
+                    let remaining_string = line.get(i..).unwrap();
+                    for number in replace_map.keys() {
+                        if remaining_string.starts_with(number) {
+                            left_val = Some(*replace_map.get(number).unwrap());
+                        }
+                    }
                 }
+            }
+
+            if right_val.is_none() {
+                if current_right_char.is_numeric() {
+                    right_val = Some(current_right_char.to_digit(10).unwrap());
+                } else {
+                    
+                    let remaining_string: String = line
+                        .get(0..line.len() - (i))
+                        .unwrap()
+                        .chars()
+                        .rev()
+                        .collect();
+
+
+
+                    for number in replace_map.keys() {
+                        let reversed_number: String = number.chars().rev().collect();
+                        if remaining_string.starts_with(&reversed_number) {
+                            right_val = Some(*replace_map.get(number).unwrap())
+                        }
+                    }
+                }
+            }
+
+
+            
+            if right_val.is_some() && left_val.is_some() {
+                break 'charIter;
             }
         }
 
-        coords += cal_val.unwrap_or(0) + last_val;
+        coords += left_val.unwrap() * 10 + right_val.unwrap();
+
+        if index <= 10 {
+            println!("{:?}) L {:?} | R {:?} = Total {:?}", index, left_val.unwrap(), right_val.unwrap(), left_val.unwrap() * 10 + right_val.unwrap());
+            println!("Sums up to: {}", coords);
+        }
+        index += 1;
     }
     println!("Day 1 part 2 solution: {}", coords);
 }
