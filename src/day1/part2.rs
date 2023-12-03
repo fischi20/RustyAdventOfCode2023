@@ -20,6 +20,7 @@ pub fn solve_day_1_part_2() {
 
 
     let mut coords: u32 = 0;
+    let mut index = 0;
     for line in contents.lines() {
         let mut left_val: Option<u32> = None;
         let mut right_val: Option<u32> = None;
