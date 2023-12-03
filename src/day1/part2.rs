@@ -20,7 +20,6 @@ pub fn solve_day_1_part_2() {
 
 
     let mut coords: u32 = 0;
-    let mut index = 0;
     for line in contents.lines() {
         let mut left_val: Option<u32> = None;
         let mut right_val: Option<u32> = None;
@@ -72,12 +71,6 @@ pub fn solve_day_1_part_2() {
         }
 
         coords += left_val.unwrap() * 10 + right_val.unwrap();
-
-        if index <= 10 {
-            println!("{:?}) L {:?} | R {:?} = Total {:?}", index, left_val.unwrap(), right_val.unwrap(), left_val.unwrap() * 10 + right_val.unwrap());
-            println!("Sums up to: {}", coords);
-        }
-        index += 1;
     }
     println!("Day 1 part 2 solution: {}", coords);
 }
