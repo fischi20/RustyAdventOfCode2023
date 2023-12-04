@@ -7,6 +7,7 @@ struct Picks {
     blue: u32,
 }
 
+#[allow(unused)]
 #[derive(Debug)]
 struct Game {
     game_id: u32,

@@ -12,7 +12,6 @@ fn has_adiecent_symbols(
     val: impl Into<String>,
     position: Position,
     content: &CharGrid,
-    print: bool,
 ) -> bool {
     let value: String = val.into();
 
@@ -80,7 +79,7 @@ pub fn solve_day_3_part_part1() {
     loop {
         match get_next_number(position, &char_lines) {
             Some((val, start_position, end_position)) => {
-                if has_adiecent_symbols(&val, start_position, &char_lines, number_amount == 0) {
+                if has_adiecent_symbols(&val, start_position, &char_lines) {
                     total += val.parse::<u32>().unwrap();
                     number_amount += 1;
                 }
